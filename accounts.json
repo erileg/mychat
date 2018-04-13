@@ -1,0 +1,37 @@
+{"users": [
+{
+  "localId": "2BB132TohMcLE0fhr0DPfLhgKjG3",
+  "email": "erik.legenhausen@gmail.com",
+  "emailVerified": true,
+  "displayName": "Erik Legenhausen",
+  "photoUrl": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+  "lastSignedInAt": "1523541368000",
+  "createdAt": "1523541368000",
+  "providerUserInfo": [
+    {
+      "providerId": "google.com",
+      "rawId": "106351444924498745342",
+      "email": "erik.legenhausen@gmail.com",
+      "displayName": "Erik Legenhausen",
+      "photoUrl": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"
+    }
+  ]
+},
+{
+  "localId": "o2TchP0mbGh5PQ9ftQej95VagaR2",
+  "email": "erle.engram@gmail.com",
+  "emailVerified": true,
+  "displayName": "Erik Legenhausen",
+  "photoUrl": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+  "lastSignedInAt": "1523539495000",
+  "createdAt": "1523539495000",
+  "providerUserInfo": [
+    {
+      "providerId": "google.com",
+      "rawId": "117508894426286581834",
+      "email": "erle.engram@gmail.com",
+      "displayName": "Erik Legenhausen",
+      "photoUrl": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"
+    }
+  ]
+}]}

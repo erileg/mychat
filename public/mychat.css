@@ -1,0 +1,53 @@
+@font-face {
+	font-family: "Envy Code R";
+	/*src: url(EnvyCodeR.ttf);*/
+	src: url(FederationClassic.ttf);
+}
+
+body {
+	font-family: "Envy Code R";
+	font-weight: 100;
+	font-size: 15pt;
+	margin-top: 2em;
+	background-image: url('picard_facepalm_rb.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.form-control {
+	font-size: 1.25em;
+	background-color: white;
+	color: black;
+}
+
+#messages {
+	opacity: .85;
+	padding: 1em;
+	margin-top: 2em
+}
+
+.msgUser {
+	font-size: 0.75em;
+	color: cadetblue;
+}
+
+.msgText {
+	padding: 0.25em;
+	color: black;
+}
+
+.msgDate {
+	font-size: 0.5em;
+	padding: 0.25em;
+	color: black;
+}
+
+.send {
+	text-align: right;
+	background-color: lightgoldenrodyellow;
+}
+
+.receive {
+	text-align: left;
+	background-color: beige;
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Firebase Chat</title>
+
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+			  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+			  crossorigin="anonymous">
+		<link rel="stylesheet" href="mychat.css">
+	</head>
+	<body>
+		<div id="container" class="container" style="visibility: hidden">
+			<input id="username" type="text" class="form-control" placeholder="Name"><br/>
+			<div class="input-group">
+				<input id="text" type="text" class="form-control" placeholder="Message">
+				<span class="input-group-btn">
+					<button id="post" class="btn btn-secondary" type="button">Send</button>
+				</span>
+			</div>
+			<div id="messages" class="panel panel-default"/>
+		</div>
+
+		<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+		<script src="quotes.js"></script>
+		<script src="tools.js"></script>
+		<script>
+			// Initialize Firebase
+			const config = {
+				apiKey: "AIzaSyCmO8tcxZxcPQL80viyzqPVvo9MJ9zh1L0",
+				authDomain: "mychat-b14f2.firebaseapp.com",
+				databaseURL: "https://mychat-b14f2.firebaseio.com",
+				projectId: "mychat-b14f2",
+				storageBucket: "mychat-b14f2.appspot.com",
+				messagingSenderId: "775721892310"
+			};
+
+			firebase.initializeApp(config);
+
+			onload = app;
+
+			function login() {
+				document.querySelector('#container').style.visibility = 'hidden'
+				firebase.auth().onAuthStateChanged(user => {
+					if (user) {
+						console.log(user);
+						app(user);
+					} else {
+						firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+					}
+				});
+			}
+
+			function app(user) {
+				const messages = firebase.firestore().collection('messages');
+				const query = messages.where('timestamp', '>', Date.now() - 24 * 3600 * 1000).orderBy("timestamp", "desc").limit(5);
+
+				document.querySelector('#container').style.visibility = 'visible'
+				const usernameInput = document.querySelector('#username');
+				const userName = user.displayName || 'Q';
+				usernameInput.value = userName;
+				const textInput = document.querySelector('#text');
+				const postButton = document.querySelector('#post');
+				const messagesTag = document.querySelector('#messages');
+
+				query.onSnapshot(snap => {
+					let html = '';
+					snap.forEach(doc => {
+						console.log(JSON.stringify(doc.data(), null, 4));
+
+						const isOwn = doc.data().user == userName;
+						const msgMarker = isOwn ? 'send' : 'receive';
+
+						const dateTime = new Date(doc.data().timestamp).toLocaleDateString() + ', ' + new Date(doc.data().timestamp).toLocaleTimeString();
+
+						html = '<div class="fadeIn well well-sm ' + msgMarker + '">' +
+							'<div class="msgUser">' + htmlEntities.encode(doc.data().user) + '</div>' +
+							'<div class="msgText">' + htmlEntities.encode(doc.data().text) + '</div>' +
+							'<div class="msgDate">' + dateTime + '</div>' +
+							'</div>' + html;
+					});
+					messagesTag.innerHTML = html;
+				});
+
+				textInput.addEventListener("keyup", event => {
+					event.preventDefault();
+					if (event.keyCode === 13) {
+						postMessage();
+					}
+				});
+
+				postButton.addEventListener("click", () => {
+					postMessage();
+				});
+
+				function postMessage() {
+					const msgUser = usernameInput.value;
+					let msgText = textInput.value;
+
+					if (msgUser == "Q" && !msgText) {
+						msgText = quoteCollection.getRandomQuote().words;
+					}
+
+					// Add a second document with a generated ID.
+					messages.add({
+						timestamp: new Date().getTime(),
+						user: msgUser,
+						text: msgText
+					})
+					.then(function (docRef) {
+						console.log("Document written with ID: ", docRef.id);
+					})
+					.catch(function (error) {
+						console.error("Error adding document: ", error);
+					});
+
+					textInput.value = "";
+				}
+			}
+		</script>
+	</body>
+</html>
