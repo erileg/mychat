@@ -20,6 +20,9 @@
 			<span class="input-group-btn">
 				<button id="post" class="btn btn-secondary" type="button">Send</button>
 			</span>
+			<span class="input-group-btn">
+				<button id="qotd" class="btn btn-secondary" type="button">QotD</button>
+			</span>
 		</div>
 		<div id="messages" class="panel panel-default" />
 	</div>
@@ -42,6 +45,7 @@
 		firebase.initializeApp(config);
 
 		onload = app;
+		// onload = login;
 
 		function login() {
 			document.querySelector('#container').style.visibility = 'hidden'
@@ -56,14 +60,6 @@
 		}
 
 		function app(user) {
-			tools.qotd().then(response => {
-				return response.json().then(data => {
-					console.log(data.quote.author + ': ' + data.quote.body);
-				});
-			}).catch(error => {
-				console.error(error);
-			});
-
 			const messages = firebase.firestore().collection('messages');
 			const query = messages.where('timestamp', '>', Date.now() - 24 * 3600 * 1000).orderBy("timestamp", "desc").limit(5);
 
@@ -73,6 +69,7 @@
 			usernameInput.value = userName;
 			const textInput = document.querySelector('#text');
 			const postButton = document.querySelector('#post');
+			const qotdButton = document.querySelector('#qotd');
 			const messagesTag = document.querySelector('#messages');
 
 			query.onSnapshot(snap => {
@@ -112,7 +109,24 @@
 				if (msgUser == "Q" && !msgText) {
 					msgText = quoteCollection.getRandomQuote().words;
 				}
+				
+				persistMessage(msgUser, msgText);
 
+				textInput.value = "";
+			}
+
+			qotdButton.addEventListener("click", () => {
+				tools.qotd().then(response => {
+					return response.json().then(data => {
+						persistMessage(data.quote.author, data.quote.body);
+						console.log(data.quote.author + ': ' + data.quote.body);
+					});
+				}).catch(error => {
+					console.error(error);
+				});
+			});
+
+			function persistMessage (msgUser, msgText){
 				messages.add({
 					timestamp: new Date().getTime(),
 					user: msgUser,
@@ -123,7 +137,6 @@
 					console.error("Error adding document: ", error);
 				});
 
-				textInput.value = "";
 			}
 		}
 	</script>
