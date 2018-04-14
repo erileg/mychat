@@ -1,7 +1,7 @@
 @font-face {
 	font-family: "Envy Code R";
-	/*src: url(EnvyCodeR.ttf);*/
-	src: url(FederationClassic.ttf);
+	src: url(EnvyCodeR.ttf);
+	/*src: url(FederationClassic.ttf);*/
 }
 
 body {

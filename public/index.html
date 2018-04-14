@@ -45,7 +45,7 @@
 		firebase.initializeApp(config);
 
 		onload = app;
-		// onload = login;
+		 // onload = login;
 
 		function login() {
 			document.querySelector('#container').style.visibility = 'hidden'
@@ -117,7 +117,7 @@
 
 			qotdButton.addEventListener("click", () => {
 				tools.qotd().then(response => {
-					return response.json().then(data => {
+					response.json().then(data => {
 						persistMessage(data.quote.author, data.quote.body);
 						console.log(data.quote.author + ': ' + data.quote.body);
 					});
