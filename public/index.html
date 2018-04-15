@@ -6,27 +6,23 @@
 	<title>Firebase Chat</title>
 
 	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	 crossorigin="anonymous">
-	<link rel="stylesheet" href="mychat.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/skeleton.css">	 
+	<link rel="stylesheet" href="css/mychat.css">
 </head>
 
 <body>
-	<div id="container" class="container" style="visibility: hidden">
-		<input id="username" type="text" class="form-control" placeholder="Name">
-		<br/>
-		<div class="input-group">
-			<input id="text" type="text" class="form-control" placeholder="Message">
-			<span class="input-group-btn">
-				<button id="post" class="btn btn-secondary" type="button">Send</button>
-			</span>
-			<span class="input-group-btn">
-				<button id="qotd" class="btn btn-secondary" type="button">QotD</button>
-			</span>
+	<div id="container" class="u-full-width" style="visibility: hidden;">
+		<div class="row">
+			<input id="username" type="text" class="ten columns" placeholder="Name">
+			<button id="qotd" class="two columns button-primary" type="button">QotD</button>
 		</div>
-		<div id="messages" class="panel panel-default" />
+		<div class="row">
+			<input id="text" type="text" class="ten columns" placeholder="Message">
+			<button id="post" class="two columns button-primary" type="button">Send</button>
+		</div>
+		<div id="messages" class="u-full-width" />
 	</div>
-
 	<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
 	<script src="quotes.js"></script>
@@ -45,7 +41,7 @@
 		firebase.initializeApp(config);
 
 		onload = app;
-		 // onload = login;
+		// onload = login;
 
 		function login() {
 			document.querySelector('#container').style.visibility = 'hidden'
@@ -82,7 +78,7 @@
 
 					const dateTime = new Date(doc.data().timestamp).toLocaleDateString() + ', ' + new Date(doc.data().timestamp).toLocaleTimeString();
 
-					html = '<div class="fadeIn well well-sm ' + msgMarker + '">' +
+					html = '<div class="message ' + msgMarker + '">' +
 						'<div class="msgUser">' + tools.encode(doc.data().user) + '</div>' +
 						'<div class="msgText">' + tools.encode(doc.data().text) + '</div>' +
 						'<div class="msgDate">' + dateTime + '</div>' +
