@@ -7,11 +7,18 @@
 body {
 	font-family: "Envy Code R";
 	font-weight: 100;
-	font-size: 15pt;
 	margin: 2em;
-	background-image: url('../assets/picard_facepalm_rb.jpg');
+	background: rgba(73,155,234,1);
+	background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);
+		/* background-image: url('../assets/picard_facepalm_rb.jpg');
 	background-size: cover;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
+}
+
+
+
+input {
+	font-size: 3rem;
 }
 
 #messages {
@@ -20,23 +27,23 @@ body {
 }
 
 .msgUser {
-	font-size: 0.75em;
+	font-size: 2rem;
 	color: cadetblue;
 }
 
 .msgText {
-	padding: 0.25em;
+	font-size: 3rem;
 	color: black;
 }
 
 .msgDate {
-	font-size: .5em;
+	font-size: 1rem;
 	padding: .25em;
 	color: black;
 }
 
 .message {
-	padding: .5em;
+	padding: .75em;
 	margin-bottom: .5em;
 	border: 1px solid #E1E1E1;
 	border-radius: 4px;
